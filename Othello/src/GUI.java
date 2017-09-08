@@ -1,4 +1,3 @@
-package AILabb1;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -71,15 +70,4 @@ public class GUI extends JPanel{
 		  
      }
      
-     public static void main (String []args){
-
-  GUI play= new GUI();
-  //JFrame frame= new JFrame("Othello");
-  //frame.setSize(800, 800);
-  //Container cont= frame.getContentPane();
-  //cont.add(frame);
-  //frame.setVisible(true);
-  play.GUI();
- 
-
-}}
+}

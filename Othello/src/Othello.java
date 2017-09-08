@@ -5,7 +5,9 @@ public class Othello {
 	private static GameEngine gEngine;
 	private static GUI gui;
 	public static void main(String[] args) {
-		gState = 
+		  GUI play= new GUI();
+		  play.GUI();
+
 	}
 	
 }

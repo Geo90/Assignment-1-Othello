@@ -24,7 +24,7 @@
         <Modifier>None</Modifier>
       </Entity>
       <Entity type="Class">
-        <Name>UI</Name>
+        <Name>GUI</Name>
         <Access>Public</Access>
         <Location left="251" top="722" />
         <Size width="162" height="216" />
