@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<nodeSet  version="1.1">
+	<view uin="V1hexuhillfocervoltyd">
+		<property name="$defaultDiagram" value="true"/>
+		<property name="$metaclass" value="ClassDiagram20"/>
+		<property name="__options" value="option.nlayout.recursive=true"/>
+		<reference referencedUin="jdt:e_class:src:library.LogInPage">
+			<property name="bounds" value="225,629,200,294"/>
+			<property name="location_set_by_user" value="true"/>
+			<reference referencedUin="jdt:l_ast:src:library.LogInPage:libraryController">
+				<property name="sourceAnchor" value="430,888"/>
+				<property name="targetAnchor" value="780,888"/>
+				<property name="bendpoints" value="469,928,691,928"/>
+				<property name="smooth_bendpoints" value="469,928,691,928"/>
+				<property name="location_set_by_user" value="true"/>
+			</reference>
+		</reference>
+		<reference referencedUin="jdt:e_class:src:library.LibraryMember">
+			<property name="bounds" value="775,125,200,314"/>
+			<property name="location_set_by_user" value="true"/>
+		</reference>
+		<reference referencedUin="jdt:e_class:src:library.MediaTable">
+			<property name="bounds" value="5,689,200,174"/>
+			<property name="location_set_by_user" value="true"/>
+		</reference>
+		<reference referencedUin="jdt:e_class:src:library.LibraryApp">
+			<property name="bounds" value="775,993,200,194"/>
+			<property name="location_set_by_user" value="true"/>
+			<reference referencedUin="jdt:l_ast:src:library.LibraryApp:lc">
+				<property name="sourceAnchor" value="880,998"/>
+				<property name="targetAnchor" value="880,928"/>
+			</reference>
+			<reference referencedUin="jdt:e_method:src:library.LibraryApp.main:main~\[QString;">
+			</reference>
+			<reference referencedUin="jdt:e_method:src:library.LibraryApp.showLoginPage:showLoginPage">
+			</reference>
+			<reference referencedUin="jdt:e_method:src:library.LibraryApp.showUserPage:showUserPage">
+			</reference>
+		</reference>
+		<reference referencedUin="jdt:e_class:src:library.LibraryController">
+			<property name="bounds" value="775,629,200,294"/>
+			<property name="location_set_by_user" value="true"/>
+			<reference referencedUin="jdt:e_method:src:library.LibraryController.borrow:borrow~I">
+			</reference>
+			<reference referencedUin="jdt:e_method:src:library.LibraryController.getAllMedia:getAllMedia">
+			</reference>
+			<reference referencedUin="jdt:e_method:src:library.LibraryController.LibraryController:LibraryController">
+			</reference>
+			<reference referencedUin="jdt:e_method:src:library.LibraryController.returnMedia:returnMedia~I">
+			</reference>
+			<reference referencedUin="jdt:e_method:src:library.LibraryController.showDetailedInfo:showDetailedInfo~I">
+			</reference>
+			<reference referencedUin="jdt:e_method:src:library.LibraryController.logIn:logIn~QString;">
+			</reference>
+			<reference referencedUin="jdt:l_ast:src:library.LibraryController:library">
+				<property name="sourceAnchor" value="780,781"/>
+				<property name="targetAnchor" value="210,241"/>
+			</reference>
+			<reference referencedUin="jdt:e_method:src:library.LibraryController.logOut:logOut">
+			</reference>
+			<reference referencedUin="jdt:l_ast:src:library.LibraryController:currentUser">
+				<property name="sourceAnchor" value="913,634"/>
+				<property name="targetAnchor" value="913,444"/>
+			</reference>
+		</reference>
+		<reference referencedUin="jdt:e_class:src:library.UserPage">
+			<property name="bounds" value="375,5,301,554"/>
+			<property name="location_set_by_user" value="true"/>
+			<property name="bounds_setted_by_user" value="true"/>
+			<reference referencedUin="jdt:l_ast:src:library.UserPage:mediaTable">
+				<property name="sourceAnchor" value="380,406"/>
+				<property name="targetAnchor" value="110,694"/>
+				<property name="bendpoints" value="110,650"/>
+				<property name="smooth_bendpoints" value="110,650"/>
+				<property name="location_set_by_user" value="true"/>
+			</reference>
+			<reference referencedUin="jdt:l_ast:src:library.UserPage:currentUser">
+				<property name="sourceAnchor" value="681,287"/>
+				<property name="targetAnchor" value="780,287"/>
+			</reference>
+			<reference referencedUin="jdt:l_ast:src:library.UserPage:controller">
+				<property name="sourceAnchor" value="681,499"/>
+				<property name="targetAnchor" value="780,638"/>
+			</reference>
+		</reference>
+		<reference referencedUin="jdt:e_class:src:library.SearchTable">
+			<property name="bounds" value="995,5,200,154"/>
+			<property name="location_set_by_user" value="true"/>
+		</reference>
+		<reference referencedUin="jdt:e_class:src:library.Library">
+			<property name="bounds" value="5,5,200,274"/>
+			<property name="location_set_by_user" value="true"/>
+		</reference>
+		<reference referencedUin="design:view:::Vam8ynkiluldpn0-g205sl">
+			<property name="bounds" value="714,458,249,91"/>
+			<property name="location_set_by_user" value="true"/>
+		</reference>
+		<reference referencedUin="design:view:::Vam8ynkilulesoa-b5f4nj">
+			<property name="bounds" value="104,298,264,91"/>
+			<property name="location_set_by_user" value="true"/>
+		</reference>
+		<reference referencedUin="design:view:::Vam8ynkilulfe0e-xnxncd">
+			<property name="bounds" value="714,-4,261,91"/>
+			<property name="location_set_by_user" value="true"/>
+		</reference>
+		<reference referencedUin="design:view:::Vam8ynkilulfv46jwx38h">
+			<property name="bounds" value="474,597,300,91"/>
+			<property name="location_set_by_user" value="true"/>
+		</reference>
+		<reference referencedUin="design:view:::Vam8ynkilulgnphgjrlj7">
+			<property name="bounds" value="-5,506,298,91"/>
+			<property name="location_set_by_user" value="true"/>
+		</reference>
+		<reference referencedUin="design:view:::Vam8ynkilulh0uz-yra5b8">
+			<property name="bounds" value="1233,-4,337,91"/>
+			<property name="location_set_by_user" value="true"/>
+		</reference>
+	</view>
+</nodeSet>

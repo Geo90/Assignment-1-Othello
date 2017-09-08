@@ -1,0 +1,18 @@
+import javax.swing.JFrame;
+
+import library.LibraryController;
+
+public class OthelloApp {
+
+	private static JFrame frame;
+	private static OthelloController oc;
+	
+	public static void main(String[] args) {
+		oc = new OthelloController();
+		
+		frame = new JFrame();
+		showLoginPage();
+
+	}
+
+}

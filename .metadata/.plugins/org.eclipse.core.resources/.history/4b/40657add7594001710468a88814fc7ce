@@ -1,0 +1,28 @@
+import javax.swing.JFrame;
+
+import library.LibraryController;
+import library.LogInPage;
+
+public class Othello {
+
+	private static JFrame frame;
+	private static OthelloController oc;
+	private static GUI gui;
+	public static void main(String[] args) {
+		oc = new OthelloController();
+		
+		frame = new JFrame();
+		showLoginPage();
+
+	}
+	
+	public static void showGameScreen(){
+		frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		frame.setContentPane(new LogInPage(lc));
+		frame.setSize(430, 200); // width, height
+		frame.setVisible(true);
+		frame.setLocationRelativeTo(null); // centers window
+		frame.setResizable(false);	
+	}
+
+}

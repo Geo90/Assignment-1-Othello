@@ -1,0 +1,11 @@
+import javax.swing.JFrame;
+
+public class Othello {
+	private static GameState gs;
+	private static GameEngine ge;
+	private static GUI gui;
+	public static void main(String[] args) {
+		oc = new OthelloController();
+	}
+	
+}
