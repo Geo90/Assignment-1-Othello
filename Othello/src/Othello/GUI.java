@@ -5,11 +5,14 @@ import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.*;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-public class GUI extends JPanel {
+public class GUI extends JPanel implements ActionListener {
 
 	int height = 4;
 	int width = 4;
@@ -29,11 +32,14 @@ public class GUI extends JPanel {
 
 	JLabel lblplayer1 = new JLabel("Player 1");
 	JLabel lblplayer2 = new JLabel("Player 2");
+	private JLabel score1= new JLabel("score1");
+	private JLabel score2= new JLabel("score2");
 
 	public void GUI() {
 
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setVisible(true);
+		frame.setSize(new Dimension(600,600));
 
 		pnl.setLayout(new GridLayout(4, 4));
 		pnl.setVisible(true);
@@ -49,14 +55,65 @@ public class GUI extends JPanel {
 		lblplayer1.setBounds(20, 0, 5, 5);
 
 		// btn.setSize(new Dimension(30,30));
-
+	    btnstart.addActionListener(this);
+	    
 		for (int i = 0; i < arrbtn.length; i++) {
-			pnl.add(new JButton());
+			
+			pnl.add(arrbtn[i] = new JButton());
+			 
+		      arrbtn[i].setBackground(Color.GREEN);
+		 
+		      arrbtn[i].addActionListener(this);
+		 
 		}
+
+		
+		 pnlnorth.add(btnstart);
+		 
+	      pnlnorth.add(lblplayer1);
+	 
+	      pnlnorth.add(lblplayer2);
+	 
+	      pnlnorth.add(score1);
+	 
+	      pnlnorth.add(score2);
 
 		frame.add(pnl);
 		frame.add(pnlnorth);
 
 	}
+	
+    public  void actionPerformed(ActionEvent e){
+    	 
+        
+    	 
+        for(int i =0;i<arrbtn.length;i++){
+   
+       
+   
+       if(e.getSource()==arrbtn[i]){
+   
+        arrbtn[i].setBackground(Color.BLACK); 
+   
+       }
+   
+       }
+   
+      if(e.getSource()==btnstart){
+   
+        for(int i =0;i<arrbtn.length;i++){
+   
+          arrbtn[i].setBackground(Color.GREEN);
+   
+          
+   
+        }
+   
+      }
+   
+      }
+   
+      
+   
 
 }
