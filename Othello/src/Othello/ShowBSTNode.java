@@ -1,11 +1,11 @@
-package laboration12;
+package Othello;
 import javax.swing.*;
 import java.awt.*;
 
-public class ShowNode<K,V> extends JLabel {
+public class ShowBSTNode<K,V> extends JLabel {
     private BSTNode<K,V> node;
     
-    public ShowNode( BSTNode<K,V> node, int width, int height ) {
+    public ShowBSTNode( BSTNode<K,V> node, int width, int height ) {
         this.node = node;
         this.setPreferredSize( new Dimension( width, height ) ); // beräknas avseende djup
     }

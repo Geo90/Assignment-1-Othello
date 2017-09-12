@@ -1,28 +1,30 @@
-package laboration12;
+package Othello;
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 import collections.ArrayList;
 import collections.List;
+import collections.SearchTree;
 
-public class AVLTree<K,V> implements SearchTree<K,V> {
+public class BinarySearchTree<K,V> implements SearchTree<K,V> {
     private Comparator<K> comparator;
-    private AVLNode<K,V> tree;
+    private BSTNode<K,V> tree;
+    private int size;
     
-    public AVLTree() {
+    public BinarySearchTree() {
         comparator = new Comp();
     }
     
-    public AVLTree( Comparator<K> comp ) {
+    public BinarySearchTree( Comparator<K> comp ) {
         comparator = comp;
     }
     
-    public AVLNode<K,V> root() {
+    public BSTNode<K,V> root() {
         return tree;
     }
     
     public V get(K key) {
-    	AVLNode<K,V> node = find( key );
+        BSTNode<K,V> node = find( key );
         if(node!=null)
             return node.value;
         return null;
@@ -53,9 +55,9 @@ public class AVLTree<K,V> implements SearchTree<K,V> {
         return new Iter();
     }
     
-    private AVLNode<K,V> find(K key) {
+    private BSTNode<K,V> find(K key) {
         int res;
-        AVLNode<K,V> node=tree;
+        BSTNode<K,V> node=tree;
         while( ( node != null ) && ( ( res = comparator.compare( key, node.key ) ) != 0 ) ) {
             if( res < 0 )
                 node = node.left;
@@ -65,9 +67,9 @@ public class AVLTree<K,V> implements SearchTree<K,V> {
         return node;
     }
     
-    private AVLNode<K,V> put(AVLNode<K,V> node, K key, V value) {
+    private BSTNode<K,V> put(BSTNode<K,V> node, K key, V value) {
         if( node == null ) {
-            node = new AVLNode<K,V>( key, value, null, null );
+            node = new BSTNode<K,V>( key, value, null, null );
         } else {
             if(comparator.compare(key,node.key)<0) {
                 node.left = put(node.left,key,value);
@@ -78,7 +80,7 @@ public class AVLTree<K,V> implements SearchTree<K,V> {
         return node;
     }
     
-    private AVLNode<K,V> remove(AVLNode<K,V> node, K key) {
+    private BSTNode<K,V> remove(BSTNode<K,V> node, K key) {
         int compare = comparator.compare(key,node.key);
         if(compare==0) {
             if(node.left==null && node.right==null)
@@ -88,7 +90,7 @@ public class AVLTree<K,V> implements SearchTree<K,V> {
             else if(node.left==null && node.right!=null)
                 node = node.right;
             else {
-                AVLNode<K,V> min = getMin(node.right);
+                BSTNode<K,V> min = getMin(node.right);
                 min.right = remove(node.right,min.key);
                 min.left = node.left;
                 node = min;
@@ -101,13 +103,13 @@ public class AVLTree<K,V> implements SearchTree<K,V> {
         return node;
     }
     
-    private AVLNode<K,V> getMin(AVLNode<K,V> node) {
+    private BSTNode<K,V> getMin(BSTNode<K,V> node) {
         while(node.left!=null)
             node = node.left;
         return node;
     }
         
-    private int height( AVLNode<K,V> node ) {
+    private int height( BSTNode<K,V> node ) {
         if( node == null )
             return -1;
         return 1 + Math.max( height( node.left ), height( node.right ));
@@ -115,11 +117,18 @@ public class AVLTree<K,V> implements SearchTree<K,V> {
     
     // Laboration 13
     public int size() {
-        return 0;
+        return size;
     }
+    
     public List<K> keys(){
-        return null;
+    	ArrayList<K> list = new ArrayList<K>();
+    	keys(tree, list);
+        return list;
     }
+    private void keys(BSTNode<K,V> node, ArrayList<K> list){
+    	
+    }
+    
     public List<V> values(){
         return null;
     }
@@ -130,6 +139,12 @@ public class AVLTree<K,V> implements SearchTree<K,V> {
         return null;
     }
     
+    public void print() {
+    	print(tree);
+    }
+    private void print(BSTNode<K,V> node) {
+    }
+        
     private class Comp implements Comparator<K> {
         public int compare( K key1, K key2 ) {
             Comparable<K> k1 = ( Comparable<K> )key1;
@@ -137,33 +152,6 @@ public class AVLTree<K,V> implements SearchTree<K,V> {
         }
     }
     
-    // AVLTree methods -----------------------------------------------
-    private AVLNode<K,V> balanceNode(AVLNode<K,V> node) {
-    	if(node!=null) {
-    	    node = balanceLeft(node);
-    	    node = balanceRight(node);
-    	}
-    	return node;
-    }
-    
-    private AVLNode<K,V> balanceLeft(AVLNode<K,V> node) {
-		return node;
-    }
-    
-    private AVLNode<K,V> balanceRight(AVLNode<K,V> node) {
-		return node;
-    }
-    
-    private AVLNode<K,V> rotateLeft(AVLNode<K,V> node) {
-        return node;
-    }
-    
-    private AVLNode<K,V> rotateRight(AVLNode<K,V> node) {
-        return node;
-    }
-    // AVLTree methods -----------------------------------------------
-    
-      
     private class Iter implements Iterator<V> {
         ArrayList<V> list = new ArrayList<V>();
         int index = -1;
@@ -172,7 +160,7 @@ public class AVLTree<K,V> implements SearchTree<K,V> {
             inOrder(tree);
         }
         
-        private void inOrder(AVLNode<K,V> node) {
+        private void inOrder(BSTNode<K,V> node) {
             if(node!=null) {
                 inOrder(node.left);
                 list.add(node.value);
@@ -197,7 +185,7 @@ public class AVLTree<K,V> implements SearchTree<K,V> {
     }
     
     public static void main(String[] args) {
-        AVLTree<String,String> tree = new AVLTree<String,String>();
+        BinarySearchTree<String,String> tree = new BinarySearchTree<String,String>();
         tree.put("karta","map");
         tree.put("vacker","beautiful");
         tree.put("svart","black");
@@ -207,7 +195,7 @@ public class AVLTree<K,V> implements SearchTree<K,V> {
         tree.put("hus","house");
         tree.put("vänster","left");
         tree.put("höger","right");
-        tree.root().showAVL();
+        tree.root().showTree();
         String res = (String)tree.get("lärare");
         System.out.println(res);
         System.out.println(tree.get("LÄRARE"));
