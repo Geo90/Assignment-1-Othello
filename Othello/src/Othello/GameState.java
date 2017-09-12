@@ -31,10 +31,12 @@ public class GameState {
 	public boolean playerMove(int row, int column) {
 		int square = getSquare(row, column);
 		if (playerTurn == player1.getNumber()) {
+			System.out.println("Placed disk: " + white.getNumber());
 			board[square] = white.getNumber();
-		} else if(playerTurn == player2.getNumber())
+		} else if(playerTurn == player2.getNumber()){
+			System.out.println("Placed disk: " + black.getNumber());
 			board[square] = black.getNumber();
-		else{
+		}else{
 			System.out.println("playerMove, Something is wrong");
 			squaresUnocupied++;
 		}
