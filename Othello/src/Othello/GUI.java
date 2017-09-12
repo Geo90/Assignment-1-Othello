@@ -18,7 +18,6 @@ import java.util.Arrays;
 public class GUI extends JPanel implements ActionListener {
 
 	GameState gamestate= new GameState();
-	GameEngine gameengine= new GameEngine();
 	
 	
 	int black = 1;
@@ -96,34 +95,14 @@ public class GUI extends JPanel implements ActionListener {
    
        if(e.getSource()==arrbtn[i]){
     	   if(gamestate.getPlayerTurn()== player1.getNumber()){
-    		   int counter = 0; 
-    		   for(int f=0;f<4;f++){
-    		      for(int g = 0; g<4;g++){
-    			   arrbtn[i].setBackground(Color.BLACK); 
-    	         //gamestate.setPlayerTurn(player2.getNumber());
-    	        //   if(counter==i){
-    			   gameengine.placeDisk(f, g);
-    	          // } 
-    	          // counter++ ;
-    		      }
-    	          
-    		      }
+    		   arrbtn[i].setBackground(Color.BLACK); 
+    	         gamestate.setPlayerTurn(player2.getNumber());
+    	         
+    	         
     	         
        }else if( gamestate.getPlayerTurn()== player2.getNumber()){
-    	   int counter = 0; 
-		   for(int b=0;b<4;b++){
-		      for(int c = 0; c<4;c++){
-			   arrbtn[i].setBackground(Color.WHITE); 
-	         //gamestate.setPlayerTurn(player2.getNumber());
-	          // if(counter==i){
-			   gameengine.placeDisk(b, c);
-	           //} 
-	           //counter++ ;
-		      }
-	          
-		      }
-
-    	   
+    	   arrbtn[i].setBackground(Color.WHITE); 
+           gamestate.setPlayerTurn(player1.getNumber());
        
       
    
