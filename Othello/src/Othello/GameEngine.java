@@ -37,12 +37,43 @@ public class GameEngine {
 	
 	private void updateBoard(int row, int column){
 		int[] board = gs.getBoard(); 
-		if(gs.getPlayerTurn() == player1.getNumber())
+		gs.playerMove(row, column);
+		if(gs.getPlayerTurn() == player1.getNumber()){	
 			board[gs.getSquare(row, column)] = white.getNumber();
-		else
+		}			
+		else{
 			board[gs.getSquare(row, column)] = black.getNumber();
-		
+		}
 		for(int p = 0; p<8; p++){
+			if(p == 0)
+				for(int i = column; i<gs.getBoardSize(); i++){
+					if(gs.getPlayerTurn() == black.getNumber() && gs.getSquare(row, i) == black.getNumber()){
+						for(int turnDisks = i; turnDisks>column; turnDisks--){
+							board[gs.getSquare(row, turnDisks)] = gs.getPlayerTurn();
+						}
+					}
+				}
+				for(int i = column; i>=0; i--){
+					if(gs.getPlayerTurn() == black.getNumber() && gs.getSquare(row, i) == black.getNumber()){
+						for(int turnDisks = i; turnDisks<column; turnDisks++){
+							board[gs.getSquare(row, turnDisks)] = gs.getPlayerTurn();
+						}
+					}
+				}
+				for(int i = row; i>=0; i--){
+					if(gs.getPlayerTurn() == black.getNumber() && gs.getSquare(i, row) == black.getNumber()){
+						for(int turnDisks = i; turnDisks<row; turnDisks++){
+							board[gs.getSquare(turnDisks, column)] = gs.getPlayerTurn();
+						}
+					}
+				}
+				for(int i = row; i>=0; i--){
+					if(gs.getPlayerTurn() == black.getNumber() && gs.getSquare(i, column) == black.getNumber()){
+						for(int turnDisks = i; turnDisks<column; turnDisks++){
+							board[gs.getSquare(turnDisks, column)] = gs.getPlayerTurn();
+						}
+					}
+				}
 		}
 	}
 	
@@ -52,5 +83,7 @@ public class GameEngine {
 		else
 			gs.setPlayerTurn(player1.getNumber());
 	}
-	
+		
 }
+	
+
