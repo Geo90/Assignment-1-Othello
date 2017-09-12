@@ -32,8 +32,12 @@ public class GameState {
 		int square = getSquare(row, column);
 		if (playerTurn == player1.getNumber()) {
 			board[square] = white.getNumber();
-		} else
+		} else if(playerTurn == player2.getNumber())
 			board[square] = black.getNumber();
+		else{
+			System.out.println("playerMove, Something is wrong");
+			squaresUnocupied++;
+		}
 		squaresUnocupied--;
 		return true;
 	}
