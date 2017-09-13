@@ -11,6 +11,6 @@ public class HumanAgent {
 	}
 	
 	public void setMove(int row, int column){
-		boolean placeDisk = gEngine.placeDisk(row, column);
+	//	boolean placeDisk = gEngine.placeDisk(row, column);
 	}
 }

@@ -100,20 +100,21 @@ public class GUI extends JPanel implements ActionListener {
 	            for(int col=0; col<arrbtn2[row].length; col++) {
 
 				   if(e.getSource()==arrbtn2[row][col]){
-					  
-						   if(gamestate.getPlayerTurn()==player1.getNumber() && gameengine.placeDisk(row,col)){
-					   System.out.println("rad="+ row + " "+" col" + col + "  " + "spelare "+" "+  gamestate.getPlayerTurn());
+					   
+					   if(gameengine.placeDisk(row,col)==player1.getNumber()){
+					   System.out.println("rad="+ row + " "+" col" + col + "  " + "spelare "+" "+  player1.getNumber());
 					   arrbtn2[row][col].setBackground(Color.white);
 					   
-					   }else if (gamestate.getPlayerTurn()==player2.getNumber()&& gameengine.placeDisk(row,col)){
-						   System.out.println("rad="+ row + " "+" col" + col + "  " +"spelare"+" " +  gamestate.getPlayerTurn());
-						   arrbtn2[row][col].setBackground(Color.BLACK);
+					   }else if(gameengine.placeDisk(row,col)==player2.getNumber()){
+						   System.out.println("rad="+ row + " "+" col" + col + "  " +"spelare"+" " +  player2.getNumber());
+						   arrbtn2[row][col].setBackground(Color.black);
 						   
 					   }
 					   }
 							   }
 				   
 	            }
+    	   
     	   
     	   
     	  // if(gamestate.getPlayerTurn()== player1.getNumber()){
