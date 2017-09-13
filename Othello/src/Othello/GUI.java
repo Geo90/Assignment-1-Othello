@@ -18,6 +18,7 @@ import java.util.Arrays;
 public class GUI extends JPanel implements ActionListener {
 
 	GameState gamestate= new GameState();
+	GameEngine gameengine = new GameEngine();
 	
 	
 	int black = 1;
@@ -38,6 +39,8 @@ public class GUI extends JPanel implements ActionListener {
 	JLabel lblplayer2 = new JLabel("Player 2");
 	private JLabel score1= new JLabel("score1");
 	private JLabel score2= new JLabel("score2");
+	
+	
 
 	public void GUI() {
 
@@ -94,15 +97,50 @@ public class GUI extends JPanel implements ActionListener {
         for(int i =0;i<arrbtn.length;i++){
    
        if(e.getSource()==arrbtn[i]){
+    	  
+    	   
     	   if(gamestate.getPlayerTurn()== player1.getNumber()){
-    		   arrbtn[i].setBackground(Color.BLACK); 
-    	         gamestate.setPlayerTurn(player2.getNumber());
+    		   int index= 0;
+    		   for(int row=0;row<4;row++){
+    			   for(int col = 0;col<4;col++){
+    				 if(index==i){ 
+    					 if( gameengine.placeDisk(col,row)){
+    					   
+    		    		   arrbtn[i].setBackground(Color.BLACK); 
+    				   break;
+    				 }}
+    				 index++;
+    				   
+    			   }
+    			   
+    		   }
+    		   
+    		   
+    		  // arrbtn[i].setBackground(Color.BLACK); 
+    	       //  gamestate.setPlayerTurn(player2.getNumber());
     	         
     	         
     	         
        }else if( gamestate.getPlayerTurn()== player2.getNumber()){
-    	   arrbtn[i].setBackground(Color.WHITE); 
-           gamestate.setPlayerTurn(player1.getNumber());
+    	  int index=0;
+    	   for(int row=0;row<4;row++){
+			   for(int col = 0;col<4;col++){
+				 if(index==i){ 
+					 if( gameengine.placeDisk(col,row)){
+					 
+					 arrbtn[i].setBackground(Color.WHITE); 
+			          // gamestate.setPlayerTurn(player1.getNumber());
+				   break;
+				 }}
+				 index++;
+				   
+			   }
+			   
+		   }
+		   
+    	   
+    	   
+    	   
        
       
    
