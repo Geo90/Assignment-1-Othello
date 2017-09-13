@@ -16,20 +16,28 @@ public class GameEngine {
 		return gs.getDiscCount();
 	}
 
-	public boolean placeDisk(int row, int column) {
+	public int placeDisk(int row, int column) {
 		if (validMove(row, column)) {
+			System.out.println("square: " + gs.getSquare(row, column));
+			System.out.println("square value: " + gs.getBoard()[gs.getSquare(row, column)]);
 			updateBoard(row, column);
+			System.out.println(gs.toString());
 			nextPlayer();
-			return true;
+
+			return gs.getPlayerTurn();
 		} else {
-			JOptionPane.showMessageDialog(null, this, "This move is invalid! Please try again.", column);
-			return false;
+			System.out.println("square: " + gs.getSquare(row, column));
+			System.out.println("square value: " + gs.getBoard()[gs.getSquare(row, column)]);
+			System.out.println("----------------------------------------------------------");
+			JOptionPane.showMessageDialog(null, "row: " + row + " column: " + column, "This move is invalid! Please try again.", column);
+			System.out.println(gs.toString());
+			return invalidMove.getNumber();
 		}
 	}
 
 	private boolean validMove(int row, int column) {
 		int[] board = gs.getBoard();
-		if (gs.getSquare(row, column) == empty.getNumber())
+		if (gs.getBoard()[gs.getSquare(row, column)] == empty.getNumber())
 			return true;
 		else
 			return false;
@@ -53,6 +61,7 @@ public class GameEngine {
 						}
 					}
 				}
+			else if(p == 1)
 				for(int i = column; i>=0; i--){
 					if(gs.getPlayerTurn() == black.getNumber() && gs.getSquare(row, i) == black.getNumber()){
 						for(int turnDisks = i; turnDisks<column; turnDisks++){
@@ -60,6 +69,7 @@ public class GameEngine {
 						}
 					}
 				}
+			else if(p == 2)
 				for(int i = row; i>=0; i--){
 					if(gs.getPlayerTurn() == black.getNumber() && gs.getSquare(i, row) == black.getNumber()){
 						for(int turnDisks = i; turnDisks<row; turnDisks++){
@@ -67,6 +77,7 @@ public class GameEngine {
 						}
 					}
 				}
+			else if(p == 3)
 				for(int i = row; i>=0; i--){
 					if(gs.getPlayerTurn() == black.getNumber() && gs.getSquare(i, column) == black.getNumber()){
 						for(int turnDisks = i; turnDisks<column; turnDisks++){
