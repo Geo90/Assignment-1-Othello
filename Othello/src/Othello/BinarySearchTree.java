@@ -8,7 +8,7 @@ import collections.SearchTree;
 
 public class BinarySearchTree<K,V> implements SearchTree<K,V> {
     private Comparator<K> comparator;
-    private BSTNode<K,V> tree;
+    private Node<K,V> tree;
     private int size;
     
     public BinarySearchTree() {
@@ -19,12 +19,12 @@ public class BinarySearchTree<K,V> implements SearchTree<K,V> {
         comparator = comp;
     }
     
-    public BSTNode<K,V> root() {
+    public Node<K,V> root() {
         return tree;
     }
     
     public V get(K key) {
-        BSTNode<K,V> node = find( key );
+        Node<K,V> node = find( key );
         if(node!=null)
             return node.value;
         return null;
@@ -55,9 +55,9 @@ public class BinarySearchTree<K,V> implements SearchTree<K,V> {
         return new Iter();
     }
     
-    private BSTNode<K,V> find(K key) {
+    private Node<K,V> find(K key) {
         int res;
-        BSTNode<K,V> node=tree;
+        Node<K,V> node=tree;
         while( ( node != null ) && ( ( res = comparator.compare( key, node.key ) ) != 0 ) ) {
             if( res < 0 )
                 node = node.left;
@@ -67,9 +67,9 @@ public class BinarySearchTree<K,V> implements SearchTree<K,V> {
         return node;
     }
     
-    private BSTNode<K,V> put(BSTNode<K,V> node, K key, V value) {
+    private Node<K,V> put(Node<K,V> node, K key, V value) {
         if( node == null ) {
-            node = new BSTNode<K,V>( key, value, null, null );
+            node = new Node<K,V>( key, value, null, null );
         } else {
             if(comparator.compare(key,node.key)<0) {
                 node.left = put(node.left,key,value);
@@ -80,7 +80,7 @@ public class BinarySearchTree<K,V> implements SearchTree<K,V> {
         return node;
     }
     
-    private BSTNode<K,V> remove(BSTNode<K,V> node, K key) {
+    private Node<K,V> remove(Node<K,V> node, K key) {
         int compare = comparator.compare(key,node.key);
         if(compare==0) {
             if(node.left==null && node.right==null)
@@ -90,7 +90,7 @@ public class BinarySearchTree<K,V> implements SearchTree<K,V> {
             else if(node.left==null && node.right!=null)
                 node = node.right;
             else {
-                BSTNode<K,V> min = getMin(node.right);
+                Node<K,V> min = getMin(node.right);
                 min.right = remove(node.right,min.key);
                 min.left = node.left;
                 node = min;
@@ -103,13 +103,13 @@ public class BinarySearchTree<K,V> implements SearchTree<K,V> {
         return node;
     }
     
-    private BSTNode<K,V> getMin(BSTNode<K,V> node) {
+    private Node<K,V> getMin(Node<K,V> node) {
         while(node.left!=null)
             node = node.left;
         return node;
     }
         
-    private int height( BSTNode<K,V> node ) {
+    private int height( Node<K,V> node ) {
         if( node == null )
             return -1;
         return 1 + Math.max( height( node.left ), height( node.right ));
@@ -125,7 +125,7 @@ public class BinarySearchTree<K,V> implements SearchTree<K,V> {
     	keys(tree, list);
         return list;
     }
-    private void keys(BSTNode<K,V> node, ArrayList<K> list){
+    private void keys(Node<K,V> node, ArrayList<K> list){
     	
     }
     
@@ -142,7 +142,7 @@ public class BinarySearchTree<K,V> implements SearchTree<K,V> {
     public void print() {
     	print(tree);
     }
-    private void print(BSTNode<K,V> node) {
+    private void print(Node<K,V> node) {
     }
         
     private class Comp implements Comparator<K> {
@@ -160,7 +160,7 @@ public class BinarySearchTree<K,V> implements SearchTree<K,V> {
             inOrder(tree);
         }
         
-        private void inOrder(BSTNode<K,V> node) {
+        private void inOrder(Node<K,V> node) {
             if(node!=null) {
                 inOrder(node.left);
                 list.add(node.value);

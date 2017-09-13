@@ -1,16 +1,18 @@
 package Othello;
 import javax.swing.*;
+
+
 import java.awt.*;
 
 public class ShowBSTNode<K,V> extends JLabel {
-    private BSTNode<K,V> node;
+    private Node<K,V> node;
     
-    public ShowBSTNode( BSTNode<K,V> node, int width, int height ) {
+    public ShowBSTNode( Node<K,V> node, int width, int height ) {
         this.node = node;
         this.setPreferredSize( new Dimension( width, height ) ); // beräknas avseende djup
     }
     
-    public void setNode( BSTNode<K,V> node ) {
+    public void setNode( Node<K,V> node ) {
         this.node = node;
         repaint();
     }
@@ -28,7 +30,7 @@ public class ShowBSTNode<K,V> extends JLabel {
         }
     }
     
-    public void showNodes(Graphics g, BSTNode<K,V> node, int level, int x, int y, int width, int height, int dx, int lineX) {
+    public void showNodes(Graphics g, Node<K,V> node, int level, int x, int y, int width, int height, int dx, int lineX) {
         if(node!=null) {
             showNodes(g,node.left,level+1,x-dx,y+height,width,height,dx/2,x+width/2);
             showNode( g, node, x+width/8 ,y+height/8 ,width-width/4 ,height-height/4 );
@@ -39,7 +41,7 @@ public class ShowBSTNode<K,V> extends JLabel {
         }
     }
     
-    public void showNode(Graphics g, BSTNode<K,V> node, int x, int y, int width, int height) {
+    public void showNode(Graphics g, Node<K,V> node, int x, int y, int width, int height) {
         g.setFont(new Font("SansSerif",Font.BOLD,12));
         g.setColor(Color.cyan);
         g.fillRect(x,y,width,height);

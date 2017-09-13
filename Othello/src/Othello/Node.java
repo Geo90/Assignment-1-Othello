@@ -1,12 +1,14 @@
 package Othello;
 
-class BSTNode<K, V> {
+
+
+public class Node<K, V> {
 	K key;
 	V value;
-	BSTNode<K, V> left;
-	BSTNode<K, V> right;
+	Node<K, V> left;
+	Node<K, V> right;
 
-	public BSTNode(K key, V value, BSTNode<K, V> left, BSTNode<K, V> right) {
+	public Node(K key, V value, Node<K, V> left, Node<K, V> right) {
 		this.key = key;
 		this.value = value;
 		this.left = left;
