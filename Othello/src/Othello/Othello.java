@@ -11,7 +11,7 @@ class Othello {
 		System.out.println(gState.toString());
 
 		
-		 BinarySearchTree<Integer,Integer> bst = new BinarySearchTree<Integer,Integer>();
+	/*	 BinarySearchTree<Integer,Integer> bst = new BinarySearchTree<Integer,Integer>();
 	        bst.put( new Integer(50), new Integer(50) );
 	        bst.put( new Integer(30), new Integer(30) );
 	        bst.put( new Integer(70), new Integer(70) );
@@ -22,7 +22,7 @@ class Othello {
 	        bst.put( new Integer(75), new Integer(75) );
 	        
 	        bst.root().print();
-	        bst.root().showTree();
+	        bst.root().showTree();*/
 	}
 	
 	public static void startGame(){
