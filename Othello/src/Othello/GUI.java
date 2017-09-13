@@ -49,6 +49,7 @@ public class GUI extends JPanel implements ActionListener {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setVisible(true);
 		frame.setSize(new Dimension(700,700));
+		frame.pack();
 
 		pnl.setLayout(new GridLayout(4, 4));
 		pnl.setVisible(true);
@@ -67,8 +68,10 @@ public class GUI extends JPanel implements ActionListener {
 	    
 	    for(int row=0; row<arrbtn2.length; row++) {
             for(int col=0; col<arrbtn2[row].length; col++) {			
-			pnl.add( arrbtn2[row][col] = new JButton());
+
+            	pnl.add( arrbtn2[row][col] = new JButton());
             	arrbtn2[row][col].setBackground(Color.GREEN);
+
 		      arrbtn2[row][col].addActionListener(this);
 		}
 		
@@ -85,7 +88,7 @@ public class GUI extends JPanel implements ActionListener {
 		frame.add(pnl);
 		frame.add(pnlnorth);
 		frame.repaint();
-		pnl.repaint();
+		//pnl.repaint();
 	    }
 	}
 	
@@ -97,15 +100,20 @@ public class GUI extends JPanel implements ActionListener {
 	            for(int col=0; col<arrbtn2[row].length; col++) {
 
 				   if(e.getSource()==arrbtn2[row][col]){
-					   if(gameengine.placeDisk(row,col)){
-					   System.out.println("rad="+ row + " "+" col" + col + "  ");
+					  
+						   if(gamestate.getPlayerTurn()==player1.getNumber() && gameengine.placeDisk(row,col)){
+					   System.out.println("rad="+ row + " "+" col" + col + "  " + "spelare "+" "+  gamestate.getPlayerTurn());
 					   arrbtn2[row][col].setBackground(Color.white);
 					   
+					   }else if (gamestate.getPlayerTurn()==player2.getNumber()&& gameengine.placeDisk(row,col)){
+						   System.out.println("rad="+ row + " "+" col" + col + "  " +"spelare"+" " +  gamestate.getPlayerTurn());
+						   arrbtn2[row][col].setBackground(Color.BLACK);
+						   
+					   }
 					   }
 							   }
 				   
-	            }}
-    	   
+	            }
     	   
     	   
     	  // if(gamestate.getPlayerTurn()== player1.getNumber()){
