@@ -30,9 +30,12 @@ private int counter = 0;
 	private JFrame frame = new JFrame("Othello");
 	private JPanel pnl = new JPanel();
 	private JPanel pnlnorth = new JPanel();
-
+    private JPanel pnlvänster = new JPanel();
+    private JPanel pnlbtn = new JPanel();
 	JButton[] arrbtn = new JButton[16];
-	JButton[][] arrbtn2 = new JButton[4][4];
+	JButton[][] arrbtn2 = new JButton[gamestate.getBoardSize()][gamestate.getBoardSize()];
+	
+	//JButton[][] arrbtn2 = new JButton[4][4];
 
 
 	JButton btnstart = new JButton("Starta spel");
@@ -41,30 +44,26 @@ private int counter = 0;
 	JLabel lblplayer2 = new JLabel("Player 2");
 	private JLabel score1= new JLabel("score1");
 	private JLabel score2= new JLabel("score2");
-
+  
 
 
 	public void GUI() {
 
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setVisible(true);
-		frame.setSize(new Dimension(700,700));
-		frame.pack();
-
 		pnl.setLayout(new GridLayout(4, 4));
 		pnl.setVisible(true);
-		// pnl.setPreferredSize(new Dimension(500,500));
-		pnl.setBounds(0, 60, 580, 500);
+		pnl.setBounds(0, 60, 550, 500);
+		
+		 pnlvänster.setLayout(new GridLayout(3,2));        		
+         pnlvänster.setVisible(true);
+		 pnlvänster.setBackground(Color.RED);
 
-		pnlnorth.add(btnstart);
-		pnlnorth.add(lblplayer1);
-		pnlnorth.add(lblplayer2);
+		 
+		 btnstart.setPreferredSize(new Dimension(50,50));
+		 
+		
 
-		frame.setSize(new Dimension(600, 600));
+		//lblplayer1.setBounds(20, 0, 5, 5);
 
-		lblplayer1.setBounds(20, 0, 5, 5);
-
-		btnstart.addActionListener(this);
 
 		for(int row=0; row<arrbtn2.length; row++) {
 			for(int col=0; col<arrbtn2[row].length; col++) {			
@@ -75,25 +74,40 @@ private int counter = 0;
 				arrbtn2[row][col].addActionListener(this);
 			}
 
-			pnlnorth.add(btnstart);
-
-			pnlnorth.add(lblplayer1);
-
-			pnlnorth.add(lblplayer2);
-
-			pnlnorth.add(score1);
-
-			pnlnorth.add(score2);
-
+			frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+			frame.setVisible(true);
+			//frame.setSize(new Dimension(700,700));
+			frame.pack();
+			
+	       // pnlvänster.add(btnstart);
+	        pnlvänster.add(lblplayer1);
+	        pnlvänster.add(lblplayer2);
+	        pnlvänster.add(score1);
+	        pnlvänster.add(score2);
+	        pnlvänster.add(btnstart);
+	        
+	    	frame.setSize(new Dimension(600, 600));
+			
+			
 			frame.add(pnl);
-			frame.add(pnlnorth);
+			frame.add(pnlvänster, BorderLayout.NORTH);
 			frame.repaint();
 			//pnl.repaint();
+			
+			btnstart.addActionListener(this);
+
 		}
 	}
 
 	public  void actionPerformed(ActionEvent e){
+		
+		if(e.getSource()==btnstart){
+			for(int row1 =0; row1<arrbtn2.length; row1++) {
+				for(int col=0; col<arrbtn2[row1].length; col++){
 
+				arrbtn2[row1][col].setBackground(Color.GREEN);
+			}
+			}}
 
 		for(int row=0; row<arrbtn2.length; row++) {
 			for(int col=0; col<arrbtn2[row].length; col++) {
@@ -133,66 +147,10 @@ private int counter = 0;
 				row++;
 				column = 0;
 			}
-						
-						
+				
+
 		}
-		
-		// if(gamestate.getPlayerTurn()== player1.getNumber()){
-		/**	   int index= 0;
-    		   for(int row=0;row<4;row++){
-    			   for(int col = 0;col<4;col++){
-    				 if(index==i){ 
 
-    					 if( gameengine.placeDisk(row,col)){
-
-     		    		    System.out.println("rad"+ row + "col " + col  + " i = " + i );
-    						 if(gamestate.getPlayerTurn()==player1.getNumber()){
-    						 arrbtn[i].setBackground(Color.BLACK); 
-
-    				   break;}
-    				 }else if(gamestate.getPlayerTurn()==player2.getNumber()){
- 		    		    System.out.println("rad"+ row + "col " + col  + " i = " + i );
-    					 arrbtn[i].setBackground(Color.WHITE);
-    					 break;
-    				 }
-    					 }
-    				 index++;
-
-    			   }
-
-    		   }
-
-
-    		  // arrbtn[i].setBackground(Color.BLACK); 
-    	       //  gamestate.setPlayerTurn(player2.getNumber());
-
-
-
-       }else if( gamestate.getPlayerTurn()== player2.getNumber()){
-    	  int index=0;
-    	   for(int row=0;row<4;row++){
-			   for(int col = 0;col<4;col++){
-				 if(index==i){ 
-					 if( gameengine.placeDisk(col,row)){
-
-					 arrbtn[i].setBackground(Color.WHITE); 
-			          // gamestate.setPlayerTurn(player1.getNumber());
-				   break;
-				 }}
-				 index++;
-
-			   }**/
-
-
-
-
-		if(e.getSource()==btnstart){
-
-			for(int i =0;i<arrbtn.length;i++){
-
-				arrbtn[i].setBackground(Color.GREEN);
-			}
-		}
 
 	}
 	public void debug(String debugLocation, String message){
