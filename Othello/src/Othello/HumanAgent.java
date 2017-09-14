@@ -4,7 +4,7 @@ public class HumanAgent {
 	
 	
 	private GUI play = new GUI();
-	private GameEngine gEngine = new GameEngine();
+	//private GameEngine gEngine = new GameEngine();
 	
 	public HumanAgent(){
 		play.GUI();

@@ -31,7 +31,7 @@ class Othello {
 	public static void startGame(){
 		gState = new GameState();
 		gEngine = new GameEngine(); //gets the current GameState and is used to update the board every move
-		MiniMaxAgent mmAgent = new MiniMaxAgent(gState);//the algorithm agent
+		//MiniMaxAgent mmAgent = new MiniMaxAgent(gState);//the algorithm agent
 		HumanAgent hAgent = new HumanAgent();//gets the current GameState and shows it to the user every move
 	}
 	

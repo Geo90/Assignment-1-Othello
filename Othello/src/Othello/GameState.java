@@ -22,7 +22,6 @@ public class GameState {
 		playerScore[player2.getNumber()-1] = 0;
 		squaresUnocupied = BOARDSIZE*BOARDSIZE;
 		playerTurn = player1.getNumber();
-		//board = new int[BOARDSIZE][BOARDSIZE];
 		for (int square: board){
          	   square = empty.getNumber();
 		}
@@ -31,10 +30,10 @@ public class GameState {
 	public boolean playerMove(int row, int column) {
 		int square = getSquare(row, column);
 		if (playerTurn == player1.getNumber()) {
-			System.out.println("Placed disk: " + white.getNumber());
+			System.out.println("Placed disk: " + "white");
 			board[square] = white.getNumber();
 		} else if(playerTurn == player2.getNumber()){
-			System.out.println("Placed disk: " + black.getNumber());
+			System.out.println("Placed disk: " + "black");
 			board[square] = black.getNumber();
 		}else{
 			System.out.println("playerMove, Something is wrong");
@@ -77,10 +76,18 @@ public class GameState {
 	 */
 	public int getSquare(int row, int column){
 		int square = 0;
-		for(int j= 0; j<row; j++)
+		if(row == 0)
 			for(int i = 0; i<column; i++){
 				square++;
 			}
+		else{
+			int index = 0;
+			for(int j= 0; j<row; j++)
+				index++;
+			square = column + index*4;
+		}		
+
+
 		return square;
 	}
 	
