@@ -10,6 +10,9 @@ public class GameEngine {
 	private GameState gs = new GameState();
 	
 	
+	public GameState copyGameState(){
+		return gs.cloneGameState();
+	}
 
 
 	/**

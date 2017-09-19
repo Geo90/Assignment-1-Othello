@@ -2,47 +2,49 @@ package Othello;
 
 
 
+
 public class Node<K, V> {
 	K key;
 	V value;
-	Node<K, V> left;
-	Node<K, V> right;
+	Node<K, V>[] children;
 
-	public Node(K key, V value, Node<K, V> left, Node<K, V> right) {
+	public Node(K key, V value, Node<K, V>[] children) {
 		this.key = key;
 		this.value = value;
-		this.left = left;
-		this.right = right;
+		this.children = children;
 	}
 
 	public int height() {
-		int leftH = -1, rightH = -1;
-		if (left != null)
-			leftH = left.height();
-		if (right != null)
-			rightH = right.height();
-		return 1 + Math.max(leftH, rightH);
+		int[] height = new int[children.length];
+		for(int i = 0; i<height.length; i++){
+			if (children[i] != null)
+				height[i] = children[i].height();
+		}
+		int max = 0;
+		for(int i = 0; i<height.length-1; i++){
+			if(height[i]>height[i+1])
+				max = height[i];
+			else
+				max = height[i+1];
+		}
+		return 1 + max;
 	}
-
+/*
 	public int size() {
 		int leftS = 0, rightS = 0;
-		if (left != null)
-			leftS = left.size();
-		if (right != null)
-			rightS = right.size();
+		if (node[0] != null)
+			leftS = node[0].size();
+		if (node[node.length-1] != null)
+			rightS = node[node.length-1].size();
 		return 1 + leftS + rightS;
 	}
-
+*/
+	
 	public void print() {
-		if (left != null)
-			left.print();
-		System.out.println(key + ": " + value);
-		if (right != null)
-			right.print();
-	}
-
-	public void showTree() {
-		javax.swing.JOptionPane.showMessageDialog(null, new ShowBSTNode<K, V>(this, 800, 600), "Show tree",
-				javax.swing.JOptionPane.PLAIN_MESSAGE);
+		for(int i = 0; i<children.length-1; i++){
+		if (children[i] != null)
+			children[i].print();
+		System.out.println(key + ": " + value );
+		}
 	}
 }

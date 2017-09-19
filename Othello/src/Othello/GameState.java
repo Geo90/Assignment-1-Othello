@@ -32,7 +32,6 @@ public class GameState {
 	}
 
 	public boolean playerMove(int row, int column) {
-
 		int square = getSquare(row, column);
 		if (playerTurn == player1.getNumber()) {
 			System.out.println("Placed disk: " + "white");
@@ -47,35 +46,32 @@ public class GameState {
 		squaresUnocupied--;
 		return true;
 	}
+
 	public void updateScorePlayer(){
 		int score = 0;
 		for(int i=0; i<board.length;i++) {
 			if(board[i]==playerTurn){
 				score++;
 			}
-
-
 		}
 		playerScore[playerTurn-1]=score;
-
 		if(playerTurn==player1.getNumber()){
 			playerScore[player2.getNumber() - 1] = BOARDSIZE*BOARDSIZE - getDiscCount() - playerScore[playerTurn-1]; 
 		}else{
 			playerScore[player1.getNumber() - 1] = BOARDSIZE*BOARDSIZE - getDiscCount() - playerScore[playerTurn-1];
 		}
-
 	}
 
-	
+
 	public int[] getPlayerScore(){
 		return playerScore;
 	}
-	
+
 	public void setPlayerTurn(int playerTurn){
 		this.playerTurn = playerTurn;
 	}
-	
-	
+
+
 	public int getPlayerTurn(){
 		int playerTurn = this.playerTurn;
 		return playerTurn; 
@@ -84,15 +80,15 @@ public class GameState {
 	public int[] getBoard() {
 		return board;
 	}
-	
+
 	public int getBoardSize(){
 		return BOARDSIZE;
 	}
-	
+
 	public int getDiscCount(){
 		return squaresUnocupied;
 	}
-	
+
 	/**
 	 * Returns the square at the specified row and column
 	 * @param row
@@ -115,20 +111,20 @@ public class GameState {
 		return square;
 	}
 
-		
-	
+
+
 	/****************************************************
 	 * Methods for cloning the GameState 
 	 ****************************************************/
-	
+
 	private void cloneBoardSize(int size){
 		this.BOARDSIZE = size;
 	}
-	
+
 	private void clonePlayerCount(int players){
 		this.PLAYERS = players;
 	}
-	
+
 	private void cloneBoard(int[] board){
 		int[] clonedBoard = new int[getBoardSize()*getBoardSize()];
 		for(int i = 0; i<clonedBoard.length; i++){
@@ -137,11 +133,11 @@ public class GameState {
 		}
 		this.board = clonedBoard;
 	}
-	
+
 	private void clonePlayerTurn(int playerTurn){
 		this.playerTurn = playerTurn;
 	}
-	
+
 	private void clonePlayerScore(int[] playerScore){
 		int[] clonedPlayerScore = new int[playerScore.length];
 		for(int i = 0; i < clonedPlayerScore.length; i++){
@@ -150,11 +146,11 @@ public class GameState {
 		}
 		this.playerScore = clonedPlayerScore;
 	}
-	
+
 	private void cloneSquareUnocupied(int squaresUnocupied){
 		this.squaresUnocupied = squaresUnocupied;
 	}
-	
+
 	public GameState cloneGameState(){
 		GameState clone = new GameState();
 		clone.clonePlayerTurn(playerTurn);
@@ -163,20 +159,20 @@ public class GameState {
 		clone.cloneBoard(this.board);
 		clone.clonePlayerScore(this.playerScore);
 		clone.cloneSquareUnocupied(this.squaresUnocupied);
-		
+
 		return clone;
-		}
-	
+	}
+
 
 	@Override
 	public String toString() {
 		return "GameState [BOARDSIZE=" + BOARDSIZE + ", PLAYERS=" + PLAYERS + ",\n board=" + Arrays.toString(board)
-				+ ",\n playerScore=" + Arrays.toString(playerScore) + ", squaresUnocupied=" + squaresUnocupied
-				+ ", playerTurn=" + playerTurn + "]";
+		+ ",\n playerScore=" + Arrays.toString(playerScore) + ", squaresUnocupied=" + squaresUnocupied
+		+ ", playerTurn=" + playerTurn + "]";
 	}
-	
-	
 
-		
+
+
+
 
 }
