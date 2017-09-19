@@ -51,10 +51,10 @@ private int counter = 0;
 
 	public void GUI() {
 
+	
+		pnl.setBounds(0, 60, 550, 500);
 		pnl.setLayout(new GridLayout(4, 4));
 		pnl.setVisible(true);
-		pnl.setBounds(0, 60, 550, 500);
-		
 		 pnlvänster.setLayout(new GridLayout(3,2));        		
          pnlvänster.setVisible(true);
 		 pnlvänster.setBackground(Color.RED);
@@ -101,16 +101,32 @@ private int counter = 0;
 
 		}
 	}
+    public void resetGame(){
+    	frame.remove(pnl);
+    	pnl = new JPanel();
+ 		pnl.setBounds(0, 60, 550, 500);
+ 		pnl.setLayout(new GridLayout(4, 4));
+		pnl.setVisible(true);
+    	 for(int row=0; row<arrbtn2.length; row++) {
+ 			for(int col=0; col<arrbtn2[row].length; col++) {			
 
+ 				pnl.add( arrbtn2[row][col] = new JButton());
+ 				arrbtn2[row][col].setBackground(Color.GREEN);
+
+ 				arrbtn2[row][col].addActionListener(this);
+ 			}}
+
+         frame.add(pnl);
+    }
 	public  void actionPerformed(ActionEvent e){
 		
 		if(e.getSource()==btnstart){
-			for(int row=0; row<arrbtn2.length; row++) {
-				for(int col=0; col<arrbtn2[row].length; col++) {
-					arrbtn2[row][col].setBackground(Color.green);
-					System.out.print("hääääär");
-				}
-		}}
+			
+			gameengine = new GameEngine();
+			//gamestate = new GameState();
+			
+			resetGame();
+			}
 
 		for(int row=0; row<arrbtn2.length; row++) {
 			for(int col=0; col<arrbtn2[row].length; col++) {
