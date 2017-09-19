@@ -24,6 +24,9 @@ private int counter = 0;
 	int white = 2;
 	int EMPTY = 0;
 	int rutor = 16;
+	
+	int player1score=0;
+    int player2score=0;
 
 	int plate[][] = new int[gamestate.getBoardSize()][gamestate.getBoardSize()];
 
@@ -32,7 +35,6 @@ private int counter = 0;
 	private JPanel pnlnorth = new JPanel();
     private JPanel pnlvänster = new JPanel();
     private JPanel pnlbtn = new JPanel();
-	JButton[] arrbtn = new JButton[16];
 	JButton[][] arrbtn2 = new JButton[gamestate.getBoardSize()][gamestate.getBoardSize()];
 	
 	//JButton[][] arrbtn2 = new JButton[4][4];
@@ -42,8 +44,8 @@ private int counter = 0;
 
 	JLabel lblplayer1 = new JLabel("Player 1");
 	JLabel lblplayer2 = new JLabel("Player 2");
-	private JLabel score1= new JLabel("score1");
-	private JLabel score2= new JLabel("score2");
+	 JLabel score1= new JLabel("score1");
+	 JLabel score2= new JLabel("score2");
   
 
 
@@ -73,6 +75,8 @@ private int counter = 0;
 
 				arrbtn2[row][col].addActionListener(this);
 			}
+			btnstart.addActionListener(this);
+            
 
 			frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 			frame.setVisible(true);
@@ -94,7 +98,6 @@ private int counter = 0;
 			frame.repaint();
 			//pnl.repaint();
 			
-			btnstart.addActionListener(this);
 
 		}
 	}
@@ -102,36 +105,51 @@ private int counter = 0;
 	public  void actionPerformed(ActionEvent e){
 		
 		if(e.getSource()==btnstart){
-			for(int row1 =0; row1<arrbtn2.length; row1++) {
-				for(int col=0; col<arrbtn2[row1].length; col++){
-
-				arrbtn2[row1][col].setBackground(Color.GREEN);
-			}
-			}}
+			for(int row=0; row<arrbtn2.length; row++) {
+				for(int col=0; col<arrbtn2[row].length; col++) {
+					arrbtn2[row][col].setBackground(Color.green);
+					System.out.print("hääääär");
+				}
+		}}
 
 		for(int row=0; row<arrbtn2.length; row++) {
 			for(int col=0; col<arrbtn2[row].length; col++) {
-
+                  
 				if(e.getSource()==arrbtn2[row][col]){			
 					int validMove = 0;
 					if(gameengine.getPlayerTurn() == player1.getNumber()){
 						debug("GUI 103", "A");
 						validMove = gameengine.placeDisk(row,col);
+						
 						System.out.println("rad="+ row + " "+" col" + col + "  " + "spelare "+" "+  player1.getNumber());
-						if(validMove != -1 )
+						if(validMove != -1 ){
 							arrbtn2[row][col].setBackground(Color.white);
 						debug("GUI 103", "A_END");
+						
+
+						}
 					}else if(gameengine.getPlayerTurn() == player2.getNumber()){
 						debug("GUI 103", "B1");
 						validMove = gameengine.placeDisk(row,col);
+						
 						System.out.println("rad="+ row + " "+" col" + col + "  " +"spelare"+" " +  player2.getNumber());
-						if(validMove != -1 )
+						if(validMove != -1 ){
 							arrbtn2[row][col].setBackground(Color.black);
 						debug("GUI 103", "B_END");
+						
+						}
+						
+           
+
 					}
 				}
 			}	
 		}
+		 score1.setText(Integer.toString(gameengine.getScorePlayer()[player1.getNumber()-1]));
+		    score2.setText(Integer.toString(gameengine.getScorePlayer()[player2.getNumber()-1]));
+		
+			
+		
 		
 		int[] board = gameengine.getBoard();
 		int row = 0;

@@ -3,15 +3,19 @@ package Othello;
 import static Othello.Values.*;
 
 import java.util.Arrays;
+import static Othello.GUI.*;
 
 public class GameState {
 
 	private int BOARDSIZE = 4;
 	private int PLAYERS = 2;
 	private int[] board = new int[BOARDSIZE*BOARDSIZE];
+	private int[][] arrboard= new int[BOARDSIZE][BOARDSIZE];
 	private int[] playerScore;
 	private int squaresUnocupied;
 	private int playerTurn;
+	private int scoreone=0;
+	private int scoretwo=0;
 
 	/**
 	 * Initial game state
@@ -23,11 +27,12 @@ public class GameState {
 		squaresUnocupied = BOARDSIZE*BOARDSIZE;
 		playerTurn = player1.getNumber();
 		for (int square: board){
-         	   square = empty.getNumber();
+			square = empty.getNumber();
 		}
 	}
 
 	public boolean playerMove(int row, int column) {
+
 		int square = getSquare(row, column);
 		if (playerTurn == player1.getNumber()) {
 			System.out.println("Placed disk: " + "white");
@@ -42,14 +47,34 @@ public class GameState {
 		squaresUnocupied--;
 		return true;
 	}
+	public void updateScorePlayer(){
+		int score = 0;
+		for(int i=0; i<board.length;i++) {
+			if(board[i]==playerTurn){
+				score++;
+			}
+
+
+		}
+		playerScore[playerTurn-1]=score;
+
+		if(playerTurn==player1.getNumber()){
+			playerScore[player2.getNumber() - 1] = BOARDSIZE*BOARDSIZE - getDiscCount() - playerScore[playerTurn-1]; 
+		}else{
+			playerScore[player1.getNumber() - 1] = BOARDSIZE*BOARDSIZE - getDiscCount() - playerScore[playerTurn-1];
+		}
+
+	}
+
 	
-	public int getPlayerScore(){
-		return playerScore[playerTurn-1];
+	public int[] getPlayerScore(){
+		return playerScore;
 	}
 	
 	public void setPlayerTurn(int playerTurn){
 		this.playerTurn = playerTurn;
 	}
+	
 	
 	public int getPlayerTurn(){
 		int playerTurn = this.playerTurn;
@@ -87,9 +112,10 @@ public class GameState {
 			square = column + index*4;
 		}		
 
-
 		return square;
 	}
+
+		
 	
 	/****************************************************
 	 * Methods for cloning the GameState 

@@ -8,6 +8,9 @@ public class GameEngine {
 
 	private int counter = 0;
 	private GameState gs = new GameState();
+	
+	
+
 
 	/**
 	 * 
@@ -28,6 +31,7 @@ public class GameEngine {
 		if (validMove(row, column)) {
 			debug(debugLocation, "B1");
 			updateBoard(row, column);
+			getScorePlayer();
 			nextPlayer();
 			System.out.println("GameEngine.placeDisk, " + gs.toString());
 			debug(debugLocation, "B2");
@@ -43,7 +47,8 @@ public class GameEngine {
 		}
 		return playerTurn;
 	}
-
+	
+	
 	private boolean validMove(int row, int column) {
 		String debugLocation = "validMove 44";
 		debug(debugLocation, "A1");
@@ -58,12 +63,19 @@ public class GameEngine {
 			return false;
 		}
 	}
+	public int[] getScorePlayer(){
+        gs.updateScorePlayer();
+	  return gs.getPlayerScore();
+     
+	}
+	
 
 	public int[] getBoard(){
 		return gs.cloneGameState().getBoard();
 	}
 
 	private void updateBoard(int row, int column){
+		
 		String debugLocation = "updateBoard 67";
 		debug(debugLocation, "A1");
 		int[] board = gs.getBoard(); 
