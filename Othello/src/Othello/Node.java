@@ -47,4 +47,8 @@ public class Node<K, V> {
 		System.out.println(key + ": " + value );
 		}
 	}
+	
+	public void setKey(K key){
+		this.key = key;
+	}
 }

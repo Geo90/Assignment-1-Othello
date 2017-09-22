@@ -12,11 +12,11 @@ public class MiniMaxSearchTree<K, V> {
 	private String debugMessage = "none";
 	private int numberOfPossibilities = 0;
 
-	private static int key = 0;
+	private int key = 0;
 	private Comparator<K> comparator;
 	private Node<K, V> tree;
 	private Node<K, V>[] children;
-	private int depth = 5;
+	private int depth = 14;
 
 	/**
 	 * Constructor for the class MiniMaxSearchTree
@@ -40,27 +40,22 @@ public class MiniMaxSearchTree<K, V> {
 		return tree;
 	}
 
-	public void add(K key, V value) {
-		tree = add(tree, key, value);        
+	public void add(K key, V value, int depth) {
+		tree = add(tree, key, value, depth);        
 	} 
 
-	private Node<K, V> add(Node<K, V> node, K key, V value) {
-		if( node == null ) {
-			node = new Node<K, V>( key, value, new Node[numberOfPossibilities]);
-			debug(debugLocation + "node " , node.toString());
-		} else {
-			int i = 0;
-			while(node.children[i] == null && i < numberOfPossibilities){
-				debug(debugLocation + "node", node.toString());
-				debug(debugLocation + "key", key.toString());
-				debug(debugLocation + "value", value.toString());
-				debug(debugLocation + "node child", node.children[i].toString());
-				debug(debugLocation + "key child", node.children[i].key.toString());
-				debug(debugLocation + "value child", node.children[i].value.toString());
-				
-				node = add(node, key, value);
-				i++;
+	private Node<K, V> add(Node<K, V> node, K key, V value, int depth) {
+		int index = 0;
+		debugLocation = "MiniMaxSearchTree, add((Node<K, V> node...): ";
+		for(int i = 0; i<node.children.length; i++){
+			if( node.children[i] == null && depth< this.depth-1) {
+				node.children[i] = new Node<K, V>(key, value, new Node[numberOfPossibilities]);
+				debug(debugLocation + "node.children["+i+"]: " , node.children[i].toString());
+				index = i;
+				break;
 			} 
+			else
+				debug(debugLocation + "node.children["+i+"]: " , "This child-node is null");
 		}
 		return node;
 	}
@@ -70,68 +65,68 @@ public class MiniMaxSearchTree<K, V> {
 	
 
 	public static void main(String[] args) {
+		/*
+		 * ***********************************
+		 * 		Initilalizing instances
+		 * ***********************************
+		 */
 		int numberOfChildren = 5;
 		MiniMaxSearchTree<Integer, GameState> mmst = new MiniMaxSearchTree<Integer, GameState>(numberOfChildren);
-		
-		
 		GameEngine gEngine = new GameEngine();
 		GameState gState = gEngine.copyGameState();
 		
-		Node nRoot = new Node(key, gState, new Node[numberOfChildren]);
+		mmst.tree = new Node(mmst.key, gState, new Node[numberOfChildren]);
 		
-		String debugLocation = mmst.debugLocation = "MiniMaxSearchTree, Main ";
-		String debugMessage = mmst.debugMessage = "nRoot number of children: " + nRoot.children.length;
-		mmst.debug(debugLocation, debugMessage);
-		
-		debugMessage = mmst.debugMessage = "nRoot.key: " + nRoot.key;
-		mmst.debug(debugLocation, debugMessage);
-		
-		debugMessage = mmst.debugMessage = "nRoot.value: " + nRoot.value;
-		mmst.debug(debugLocation, debugMessage);
-		
-		GameState gsValue = (GameState)nRoot.value;
-		debugMessage = mmst.debugMessage = "gsValue.getPlayerTurn(): " + gsValue.getPlayerTurn();;
-		mmst.debug(debugLocation, debugMessage);
+		mmst.printRoot(mmst.tree);
 		
 		
-		mmst.add(key, gState);
-		key++;
-		//System.exit(0);
+		GameState gsValue = (GameState)mmst.tree.value;
+		mmst.debugMessage = mmst.debugMessage = "gsValue.getPlayerTurn(): " + gsValue.getPlayerTurn();;
+		mmst.debug(mmst.debugLocation, mmst.debugMessage);
 		
-		int index = 0;
-		int[] unocupiedSquare = new int[gState.getUnocupiedDiscCount()];
-		for(int i = 0; i<gState.getUnocupiedDiscCount(); i++){
-			if(gState.getBoard()[i] == 0){
-				unocupiedSquare[index] = gState.getBoard()[i];
-				index++;
-			}
+		
+		for(int i = 0; i<mmst.depth; i++){
+			System.out.println("--- DEPTH --- : " + i);
+			MiniMaxAgent mmAgent = new MiniMaxAgent(gEngine);
+			int square = mmAgent.agentMove();
+			gState = mmst.newMove(gEngine, square);
+			mmst.add(mmst.key, gState, i);
+			mmst.key++;
+			
 		}
+		mmst.debugMessage = "tree.children[0]:" + mmst.tree.children[0].key;
+		mmst.debug(mmst.debugLocation, mmst.debugMessage);
 		
-		/*
-		gState = mmst.newMove(gState, row, column);
-		mmst.add(0, gs);
 
-
-		gs = mmst.newMove(ge, row, column);
-		//mmst.add(0, gs);
-
-		gs = mmst.newMove(ge, row, column);
-		//mmst.add(0, gs);
-
-		gs = mmst.newMove(ge, row, column);
-		//mmst.add(0, gs);
-		 * 
-		 */
+		mmst.debugMessage = "tree.children[1]:" + mmst.tree.children[0].children[0].key;
+		mmst.debug(mmst.debugLocation, mmst.debugMessage);
+		//mmst.printRoot(mmst.tree);
+		
 	}
 
-	public GameState newMove(GameEngine ge, int square){
-		//ge.placeDisk(square);
-		return ge.copyGameState();
+	public GameState newMove(GameEngine gEngine, int square){
+		int[] rc = gEngine.getRowColumn(square);
+		gEngine.placeDisk(rc[0], rc[1]);
+		return gEngine.copyGameState();
 	}
-
 
 	public void debug(String debugLocation, String debugMessage){
 		System.out.println(debugLocation + ": " + debugMessage);
+	}
+	
+	public void printRoot(Node<K,V> nRoot){
+		String debugLocation = this.debugLocation = "MiniMaxSearchTree, printRoot(nRoot) ";
+		String debugMessage = this.debugMessage = "nRoot number of children: " + nRoot.children.length;
+		debug(debugLocation, debugMessage);
+		debugLocation = this.debugLocation = "";
+		debugMessage = this.debugMessage = "nRoot.key: " + nRoot.key;
+		debug(debugLocation, debugMessage);
+		
+		debugMessage = this.debugMessage = "nRoot.value: \n" + nRoot.value;
+		debug(debugLocation, debugMessage);
+		debugMessage = this.debugMessage = "end of method printRoot(nRoot)";
+		debug(debugLocation, debugMessage);
+		
 	}
 }
 

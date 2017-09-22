@@ -28,70 +28,32 @@ public class GameEngine {
 	}
 
 	public int placeDisk(int row, int column) {
-		String debugLocation = "placeDisk 31";
+		String debugLocation = "GameEngine, placeDisk(row, column)";
 		int playerTurn = gs.getPlayerTurn();
 		if (validMove(row, column)) {
 			updateBoard(row, column);
 			getScorePlayer();
 			nextPlayer();
-			System.out.println("GameEngine.placeDisk, " + gs.toString());
+			debug(debugLocation, "\n" + gs.toString()); 
 		} else {
-			debug(debugLocation, "C1");
-			System.out.println("square value: " + gs.getBoard()[gs.getSquare(row, column)]);
 			System.out.println("----------------------------------------------------------");
 			JOptionPane.showMessageDialog(null, "row: " + row + " column: " + column, "This move is invalid! Please try again.", column);
-			System.out.println("GameEngine.placeDisk, INVALID MOVE " + gs.toString());
-			System.out.println("invalidMove");
 			playerTurn = invalidMove.getNumber();
-			debug(debugLocation, "C2");
 		}
 		return playerTurn;
 	}
-	/*
-	public int placeDisk(int square) {
-		String debugLocation = "placeDisk 52";
-		int playerTurn = gs.getPlayerTurn();
-		if (validMove(square)) {
-			int[] rc = getRowColumn(square);
-			updateBoard(rc[0], rc[1]);
-			getScorePlayer();
-			nextPlayer();
-			System.out.println("GameEngine.placeDisk, " + gs.toString());
-		} else {
-			debug(debugLocation, "C1");
-			System.out.println("square value: " + gs.getBoard()[square]);
-			System.out.println("----------------------------------------------------------");
-			System.out.println("GameEngine.placeDisk, INVALID MOVE " + gs.toString());
-			System.out.println("invalidMove");
-			playerTurn = invalidMove.getNumber();
-			debug(debugLocation, "C2");
-		}
-		return playerTurn;
-	}
-	*/
 	
 	private boolean validMove(int row, int column) {
-		String debugLocation = "validMove 56";
-		debug(debugLocation, "A1");
-		System.out.println("(row, column): (" + row + ", " + column);
 		int[] board = gs.getBoard();
-		debug(debugLocation + "--- board[gs.getSquare(row, column)] ---- : ", " " +gs.getSquare(row, column));
-		
 		return validMove(gs.getSquare(row, column));
 	}
 	
 	private boolean validMove(int square){
-		String debugLocation = "validMove 64";
-		debug(debugLocation, "A1");
 		int[] board = gs.getBoard();
-		debug(debugLocation + "squre: ", " " +square);
-		
 		if (board[square] == empty.getNumber()){
-			debug(debugLocation, "B1");
 			return true;
 		}
 		else{
-			debug(debugLocation, "C1");
 			return false;
 		}
 	}
@@ -125,12 +87,8 @@ public class GameEngine {
 	}
 	
 	private void updateBoard(int row, int column){	
-		String debugLocation = "updateBoard 67";
-		debug(debugLocation, "A1");
 		int[] board = gs.getBoard(); 
 		gs.playerMove(row, column);
-		debug(debugLocation, "A2");
-		System.out.println("(row, column): (" + row + ", " + column);
 		int playerTurn = getPlayerTurn();
 		int diskColor = 0;
 		if(playerTurn == player1.getNumber())
@@ -146,11 +104,10 @@ public class GameEngine {
 						if(board[gs.getSquare(row, i)] == diskColor){
 							for(int turnDisks = column; turnDisks<=i; turnDisks++){
 								board[gs.getSquare(row, turnDisks)] = diskColor;
-								debug(debugLocation, "B_horizontal_right: " + row + ", " + turnDisks);
 							}
 						}
 					}else{
-						debug(debugLocation, "BREAK!!!");
+						//nothing to turn
 						break;
 					}
 				}
@@ -160,7 +117,6 @@ public class GameEngine {
 						if(board[gs.getSquare(row, i)] == diskColor){
 							for(int turnDisks = column; turnDisks>=i; turnDisks--){
 								board[gs.getSquare(row, turnDisks)] = diskColor;
-								debug(debugLocation, "C_horizontal_left: " + row + ", " + turnDisks);
 							}
 						}
 					}else{
@@ -173,10 +129,10 @@ public class GameEngine {
 						if(board[gs.getSquare(i, column)] == diskColor){
 							for(int turnDisks = row; turnDisks>=i; turnDisks--){
 								board[gs.getSquare(turnDisks, column)] = diskColor;
-								debug(debugLocation, "B_vertical_up: " + turnDisks + ", " + column);
 							}
 						}
 					}else{
+						//nothing to turn
 						break;
 					}
 				}
@@ -186,10 +142,10 @@ public class GameEngine {
 						if(board[gs.getSquare(i, column)] == diskColor){
 							for(int turnDisks = row; turnDisks<=i; turnDisks++){
 								board[gs.getSquare(turnDisks, column)] = diskColor;
-								debug(debugLocation, "B_vertical_down: " + turnDisks + ", " + column);
 							}
 						}
 					}else{
+						//nothing to turn
 						break;
 					}
 				}
@@ -201,11 +157,11 @@ public class GameEngine {
 							columnCounter = column+1;
 							for(int turnDisks = row+1; turnDisks<=i; turnDisks++){
 								board[gs.getSquare(turnDisks, columnCounter)] = diskColor;
-								debug(debugLocation, "C_diagonal down right: " + turnDisks + ", " + columnCounter);
 								columnCounter++;
 							}
 						}
 					}else{
+						//nothing to turn
 						break;
 					}
 					columnCounter++;
@@ -219,11 +175,11 @@ public class GameEngine {
 							columnCounter = column+1;
 							for(int turnDisks = row-1; turnDisks>=i; turnDisks--){
 								board[gs.getSquare(turnDisks, columnCounter)] = diskColor;
-								debug(debugLocation, "D_diagonal up right: " + turnDisks + ", " + columnCounter);
 								columnCounter++;
 							}
 						}
 					} else{
+						//nothing to turn
 						break;
 					}
 					columnCounter++;
@@ -239,10 +195,10 @@ public class GameEngine {
 									columnCounter = column-1;
 									for(int turnDisks = row+1; turnDisks<=i; turnDisks++){
 										board[gs.getSquare(turnDisks, columnCounter)] = diskColor;
-										debug(debugLocation, "E_diagonal down left: " + turnDisks + ", " + columnCounter);
 										columnCounter--;
 									}
 								}else{
+									//nothing to turn
 									break;
 								}
 				}
@@ -250,19 +206,17 @@ public class GameEngine {
 			}else if(p == 7){//diagonal up left
 				int columnCounter = column-2;
 				for(int i = row-2; i>=0; i--){
-
 					if(board[gs.getSquare(i+1, columnCounter+1)] != empty.getNumber())
 						if(board[gs.getSquare(i+1, columnCounter+1)] != diskColor)
 							if(board[gs.getSquare(i, columnCounter)] == diskColor)//check where i disk /w same color is)
 								if(columnCounter>=0){
-									debug(debugLocation + " 191, " , "diagonal up left, columnCounter: " + columnCounter);
 									columnCounter = column-1;
 									for(int turnDisks = row-1; turnDisks>=i; turnDisks--){
 										board[gs.getSquare(turnDisks, columnCounter)] = diskColor;
-										debug(debugLocation, "F_diagonal up left: " + turnDisks + ", " + columnCounter);
 										columnCounter--;
 									}
 								}else{
+									//nothing to turn
 									break;
 								}
 				}
