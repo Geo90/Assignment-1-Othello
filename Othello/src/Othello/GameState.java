@@ -33,6 +33,10 @@ public class GameState {
 
 	public boolean playerMove(int row, int column) {
 		int square = getSquare(row, column);
+		return playerMove(square);
+	}
+	
+	public boolean playerMove(int square){
 		if (playerTurn == player1.getNumber()) {
 			System.out.println("Placed disk: " + "white");
 			board[square] = white.getNumber();
@@ -56,9 +60,9 @@ public class GameState {
 		}
 		playerScore[playerTurn-1]=score;
 		if(playerTurn==player1.getNumber()){
-			playerScore[player2.getNumber() - 1] = BOARDSIZE*BOARDSIZE - getDiscCount() - playerScore[playerTurn-1]; 
+			playerScore[player2.getNumber() - 1] = BOARDSIZE*BOARDSIZE - getUnocupiedDiscCount() - playerScore[playerTurn-1]; 
 		}else{
-			playerScore[player1.getNumber() - 1] = BOARDSIZE*BOARDSIZE - getDiscCount() - playerScore[playerTurn-1];
+			playerScore[player1.getNumber() - 1] = BOARDSIZE*BOARDSIZE - getUnocupiedDiscCount() - playerScore[playerTurn-1];
 		}
 	}
 
@@ -85,7 +89,7 @@ public class GameState {
 		return BOARDSIZE;
 	}
 
-	public int getDiscCount(){
+	public int getUnocupiedDiscCount(){
 		return squaresUnocupied;
 	}
 

@@ -20,7 +20,7 @@ public class GameEngine {
 	 * @return
 	 */
 	public int updateDiskCount() {
-		return gs.getDiscCount();
+		return gs.getUnocupiedDiscCount();
 	}
 
 	public int getPlayerTurn(){
@@ -28,16 +28,13 @@ public class GameEngine {
 	}
 
 	public int placeDisk(int row, int column) {
-		String debugLocation = "placeDisk 21";
-		debug(debugLocation, "A1");
+		String debugLocation = "placeDisk 31";
 		int playerTurn = gs.getPlayerTurn();
 		if (validMove(row, column)) {
-			debug(debugLocation, "B1");
 			updateBoard(row, column);
 			getScorePlayer();
 			nextPlayer();
 			System.out.println("GameEngine.placeDisk, " + gs.toString());
-			debug(debugLocation, "B2");
 		} else {
 			debug(debugLocation, "C1");
 			System.out.println("square value: " + gs.getBoard()[gs.getSquare(row, column)]);
@@ -50,14 +47,46 @@ public class GameEngine {
 		}
 		return playerTurn;
 	}
-	
+	/*
+	public int placeDisk(int square) {
+		String debugLocation = "placeDisk 52";
+		int playerTurn = gs.getPlayerTurn();
+		if (validMove(square)) {
+			int[] rc = getRowColumn(square);
+			updateBoard(rc[0], rc[1]);
+			getScorePlayer();
+			nextPlayer();
+			System.out.println("GameEngine.placeDisk, " + gs.toString());
+		} else {
+			debug(debugLocation, "C1");
+			System.out.println("square value: " + gs.getBoard()[square]);
+			System.out.println("----------------------------------------------------------");
+			System.out.println("GameEngine.placeDisk, INVALID MOVE " + gs.toString());
+			System.out.println("invalidMove");
+			playerTurn = invalidMove.getNumber();
+			debug(debugLocation, "C2");
+		}
+		return playerTurn;
+	}
+	*/
 	
 	private boolean validMove(int row, int column) {
-		String debugLocation = "validMove 44";
+		String debugLocation = "validMove 56";
 		debug(debugLocation, "A1");
 		System.out.println("(row, column): (" + row + ", " + column);
 		int[] board = gs.getBoard();
-		if (board[gs.getSquare(row, column)] == empty.getNumber()){
+		debug(debugLocation + "--- board[gs.getSquare(row, column)] ---- : ", " " +gs.getSquare(row, column));
+		
+		return validMove(gs.getSquare(row, column));
+	}
+	
+	private boolean validMove(int square){
+		String debugLocation = "validMove 64";
+		debug(debugLocation, "A1");
+		int[] board = gs.getBoard();
+		debug(debugLocation + "squre: ", " " +square);
+		
+		if (board[square] == empty.getNumber()){
 			debug(debugLocation, "B1");
 			return true;
 		}
@@ -72,13 +101,30 @@ public class GameEngine {
      
 	}
 	
+	public int[] getRowColumn(int square){
+		int boardSize = gs.getBoardSize();
+		int counter = 1;
+		int row = 0, column = 0;
+		for(int i = 0; i<square; i++){
+			if(column >= boardSize-1){
+				row++;
+				column = 0;
+				counter = i;
+			}
+			else{
+				column++;
+			}
+			counter++;
+		}
+		int [] rc = {row, column};
+		return rc;
+	}
 
 	public int[] getBoard(){
 		return gs.cloneGameState().getBoard();
 	}
-
-	private void updateBoard(int row, int column){
-		
+	
+	private void updateBoard(int row, int column){	
 		String debugLocation = "updateBoard 67";
 		debug(debugLocation, "A1");
 		int[] board = gs.getBoard(); 
