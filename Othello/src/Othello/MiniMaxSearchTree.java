@@ -16,7 +16,7 @@ public class MiniMaxSearchTree<K, V> {
 	private Comparator<K> comparator;
 	private Node<K, V> tree;
 	private Node<K, V>[] children;
-	private int depth = 14;
+	private int depth = 3;
 
 	/**
 	 * Constructor for the class MiniMaxSearchTree
@@ -54,8 +54,12 @@ public class MiniMaxSearchTree<K, V> {
 				index = i;
 				break;
 			} 
-			else
-				debug(debugLocation + "node.children["+i+"]: " , "This child-node is null");
+			else{
+				if(i == 0)
+					debug(debugLocation, "The bottom of tree is reached! No more child-nodes! \nnode.children[i]: ");
+				debug(i+"" , "This child-node is null");
+				
+			}
 		}
 		return node;
 	}
@@ -94,11 +98,11 @@ public class MiniMaxSearchTree<K, V> {
 			mmst.key++;
 			
 		}
-		mmst.debugMessage = "tree.children[0]:" + mmst.tree.children[0].key;
+		mmst.debugMessage = "tree.children[0].value:" + mmst.tree.children[0].value;
 		mmst.debug(mmst.debugLocation, mmst.debugMessage);
 		
 
-		mmst.debugMessage = "tree.children[1]:" + mmst.tree.children[0].children[0].key;
+		mmst.debugMessage = "tree.children[1].value:" + mmst.tree.children[1].value;
 		mmst.debug(mmst.debugLocation, mmst.debugMessage);
 		//mmst.printRoot(mmst.tree);
 		
